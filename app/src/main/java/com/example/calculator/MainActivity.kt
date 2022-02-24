@@ -23,13 +23,6 @@ class MainActivity : AppCompatActivity() {
         Toast.makeText(this,"Please type again", Toast.LENGTH_SHORT).show()
     }
 
-    fun backSpaceAction(view: View) {
-        val length = workingTV.length()
-        if (length > 0)
-            workingTV.text = workingTV.text.subSequence(0, length - 1)  //subSequence = donbale farii
-
-        Toast.makeText(this,workingTV.text.subSequence(0, length - 1), Toast.LENGTH_SHORT).show()
-    }
 
     fun numberAction(view: View) {
 
@@ -69,13 +62,12 @@ class MainActivity : AppCompatActivity() {
         val timesDivision = timeDivisionCalculate(digitsOperators)
         if (timesDivision.isEmpty())  return ""
 
-
         val result = addSubtractCalculate(timesDivision)
 
         return result.toString()
     }
 
-    private fun addSubtractCalculate(passedList: MutableList<Any>): Float {
+    private fun addSubtractCalculate(passedList: MutableList<Any>): Float { // mohasebe jam va tafrigh
         var result = passedList[0] as Float
 
         for (i in passedList.indices){
@@ -88,11 +80,10 @@ class MainActivity : AppCompatActivity() {
                     result -=nextDigit
             }
         }
-
         return result
     }
 
-    private fun timeDivisionCalculate(passedList: MutableList<Any>): MutableList<Any> {
+    private fun timeDivisionCalculate(passedList: MutableList<Any>): MutableList<Any> {  // mohasebe zard o taghsim
         var list = passedList
         while( list.contains('*')  || list.contains('/')){
             list = callTimesDiv(list)
@@ -127,17 +118,15 @@ class MainActivity : AppCompatActivity() {
                             newlist.add(prevDigit)
                             newlist.add(operator)
                         }
-
                     }
                 }
                 if (i > restartIndex )
                     newlist.add(passedList[i])
             }
-
             return newlist
     }
 
-    private fun digitsOperation(): MutableList<Any> {
+    private fun digitsOperation(): MutableList<Any> {  // reshtei az adad gerefte va dar yek list zakhire mikonad
         val list = mutableListOf<Any>()
         var currentDigit = ""
         for (charecter in workingTV.text) {
